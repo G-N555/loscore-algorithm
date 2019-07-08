@@ -43,7 +43,11 @@ class LoScore {
     return result;
   }
 
-  reject(collection, test) {}
+  reject(collection, test) {
+    return this.filter(collection, (val) => {
+      return !test(val);
+    });
+  }
 
   reduce(collection, iterator, accumulator) {
     // YOUR CODE HERE
