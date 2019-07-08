@@ -93,23 +93,19 @@ class LoScore {
       if (count === 0) {
         count++;
         previousValue = func();
-        return previousValue;
-      } else {
-        return previousValue;
       }
+      return previousValue;
     };
   }
 
   memoize(func) {
-    const cache = {};
+    let cache = {};
     return (...val) => {
       const key = JSON.stringify(val);
-      if (cache[key]) {
-        return cache[key];
-      } else {
+      if (!cache[key]) {
         cache[key] = func(...val);
-        return cache[key];
       }
+      return cache[key];
     };
   }
 
