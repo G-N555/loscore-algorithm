@@ -9,7 +9,7 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    // YOUR CODE HERE
+    return Array.from(new Set(array));
   }
 
   /**
