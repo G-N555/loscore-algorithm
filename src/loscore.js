@@ -50,7 +50,20 @@ class LoScore {
   }
 
   reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
+    let acc;
+    if (accumulator === undefined) {
+      acc = collection[0];
+      const col = collection.slice(1);
+      this.each(col, (value) => {
+        acc = iterator(acc, value);
+      });
+    } else {
+      acc = accumulator;
+      this.each(collection, (value) => {
+        acc = iterator(acc, value);
+      });
+    }
+    return acc;
   }
 
   every() {
