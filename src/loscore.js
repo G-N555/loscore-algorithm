@@ -66,8 +66,8 @@ class LoScore {
     return acc;
   }
 
-  every() {
-    // YOUR CODE HERE
+  every(collection, test = (value) => value) {
+    return this.reduce(collection, (acc, value) => acc && !!test(value), true);
   }
 
   /**
