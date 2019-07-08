@@ -598,7 +598,6 @@ describe("LoScore", () => {
         // Manipulate favoriteThings in objB's reference and expect the result to appear in extendedObjA's reference.
         objB.favoriteThings.pop();
         expect(extendedObjA.favoriteThings).to.eql(objB.favoriteThings);
-
         expect(_.extend({}, objA).age).to.eql(50);
       });
 

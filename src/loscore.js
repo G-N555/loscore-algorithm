@@ -74,8 +74,11 @@ class LoScore {
   | OBJECTS
   |~~~~~~~~~~
   * */
-  extend(obj) {
-    // YOUR CODE HERE
+  extend(originalObj, ...objects) {
+    this.each(objects, (object) => {
+      Object.assign(originalObj, object);
+    });
+    return originalObj;
   }
 
   /**
@@ -84,7 +87,17 @@ class LoScore {
   * */
 
   once(func) {
-    // YOUR CODE HERE
+    let count = 0;
+    let previousValue;
+    return () => {
+      if (count === 0) {
+        count++;
+        previousValue = func();
+        return previousValue;
+      } else {
+        return previousValue;
+      }
+    };
   }
 
   memoize(func) {
