@@ -101,7 +101,16 @@ class LoScore {
   }
 
   memoize(func) {
-    // YOUR CODE HERE
+    const cache = {};
+    return (...val) => {
+      const key = JSON.stringify(val);
+      if (cache[key]) {
+        return cache[key];
+      } else {
+        cache[key] = func(...val);
+        return cache[key];
+      }
+    };
   }
 
   invoke(collection, functionOrKey) {
