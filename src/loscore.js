@@ -99,7 +99,7 @@ class LoScore {
   }
 
   memoize(func) {
-    let cache = {};
+    const cache = {};
     return (...val) => {
       const key = JSON.stringify(val);
       if (!cache[key]) {

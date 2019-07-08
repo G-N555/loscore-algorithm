@@ -12,7 +12,7 @@ const disallowedMethods = [
   "some",
 ];
 const spyOnNativeMethods = () => {
-  for (let method of disallowedMethods) {
+  for (const method of disallowedMethods) {
     spy(Array.prototype, method);
   }
 };
@@ -20,7 +20,7 @@ const spyOnNativeMethods = () => {
 const spyReport = () => {
   // DO NOT CHANGE TO USE NATIVE METHODS HERE!!!
   let hasBeenCalled = false;
-  for (let method of disallowedMethods) {
+  for (const method of disallowedMethods) {
     if (Array.prototype[method].called) {
       hasBeenCalled = true;
     }
