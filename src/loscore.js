@@ -132,24 +132,54 @@ class LoScore {
   |~~~~~~~~~~~~~
   * */
 
-  sortBy() {
-    // YOUR CODE HERE
+  sortBy(collection, functionOrKey) {
+    const obj = {};
+    if (typeof functionOrKey === "string") {
+      this.each(collection, (value) => {
+        obj[value[functionOrKey]] = value;
+      });
+    } else {
+      this.each(collection, (value) => {
+        obj[functionOrKey(value)] = value;
+      });
+    }
+    return Object.values(obj);
   }
 
-  zip() {
-    // YOUR CODE HREE
+  zip(array1, array2) {
+    const newArray = [];
+    for (let i = 0; i < Math.max(array1.length, array2.length); i++) {
+      const firstValue = array1[i] === undefined ? "" : array1[i];
+      const secondValue = array2[i] === undefined ? "" : array2[i];
+      newArray.push(firstValue + secondValue);
+    }
+    return newArray;
   }
 
-  delay() {
-    // YOUR CODE HERE
+  delay(func, delayTime) {
+    return (value) => {
+      setTimeout(() => func(value), delayTime);
+    };
   }
 
-  defaults() {
-    // YOUR CODE HERE
+  defaults(obj1, obj2) {
+    this.each(obj2, (value, key) => {
+      obj1[key] = obj1[key] === undefined ? obj2[key] : obj1[key];
+    });
+    return obj1;
   }
 
-  throttle() {
-    // YOUR CODE HERE
+  throttle(func, delayTime) {
+    let throttled = false;
+    return () => {
+      if (throttled === false) {
+        func();
+        throttled = true;
+        setTimeout(() => {
+          throttled = false;
+        }, delayTime);
+      }
+    };
   }
 }
 

@@ -748,5 +748,78 @@ describe("LoScore", () => {
         expect(reversedStrings).to.eql(["nay", "naf"]);
       });
     });
+
+    describe("sortBy", () => {
+      it("should sort by based on the return value function given", () => {
+        const addTwo = (val) => val + 2;
+        const array = [3, 5, 1, 6, 2];
+        const sortedArray = _.sortBy(array, addTwo);
+        expect(sortedArray).to.eql([1, 2, 3, 5, 6]);
+      });
+      it("should sort by based on the return value when it's backwards", () => {
+        const hundredMinus = (val) => 100 - val;
+        const array = [3, 5, 1, 6, 2];
+        const sortedArray = _.sortBy(array, hundredMinus);
+        expect(sortedArray).to.eql([6, 5, 3, 2, 1]);
+      });
+      it("should sort when it's passed a property like length", () => {
+        const array = ["abc", "a", "ABCD", "As"];
+        const sortedArray = _.sortBy(array, "length");
+        expect(sortedArray).to.eql(["a", "As", "abc", "ABCD"]);
+      });
+    });
+
+    describe("zip", () => {
+      it("should pack two arrays", () => {
+        const array1 = [0, 2, 3];
+        const array2 = ["a", "b", "c"];
+        const packedArray = _.zip(array1, array2);
+        expect(packedArray).to.eql(["0a", "2b", "3c"]);
+      });
+      it("should work with different length arrays", () => {
+        const array1 = [1, 2, 3];
+        const array2 = ["a", "b", "c", "d", "e"];
+        const packedArray = _.zip(array1, array2);
+        expect(packedArray).to.eql(["1a", "2b", "3c", "d", "e"]);
+      });
+    });
+
+    describe("delay", () => {
+      it("should delay the function for x number of seconds", () => {
+        const funFunction = () => 1;
+        const delayFunFunction = _.delay(funFunction, 5000);
+        const returnedValue = delayFunFunction();
+        expect(returnedValue).to.eql(undefined);
+        setTimeout(() => expect(returnedValue).to.eql(1), 10000);
+      });
+    });
+
+    describe("defaults", () => {
+      it("should combine objects without overwriting", () => {
+        const obj1 = { a: 1, b: 2, c: 3 };
+        const obj2 = { a: 3, b: 1, c: 4, d: 5, e: 6 };
+        const combinedObj = _.defaults(obj1, obj2);
+        expect(combinedObj).to.eql({ a: 1, b: 2, c: 3, d: 5, e: 6 });
+      });
+    });
+
+    describe("throttle", () => {
+      it("should invoke function only once during the time", () => {
+        let count = 0;
+        const funFunction = () => count++;
+        const throttledFunFunction = _.throttle(funFunction, 5000);
+        expect(count).to.eql(0);
+        throttledFunFunction();
+        expect(count).to.eql(1);
+        throttledFunFunction();
+        throttledFunFunction();
+        throttledFunFunction();
+        expect(count).to.eql(1);
+        setTimeout(() => {
+          throttledFunFunction();
+          expect(count).to.eql(2);
+        }, 10000);
+      });
+    });
   });
 });
